@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 const BASE_URL = process.env.API_BASE_PATH
-console.log(BASE_URL)
 
 const App: React.FC = () => {
     const [artist, setArtist] = useState('')
