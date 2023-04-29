@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-const BASE_URL = process.env.REACT_APP_API_BASE_PATH
+const BASE_URL = process.env.REACT_APP_API_BASE_PATH || 'https://album-cover-search.herokuapp.com/api/album-cover'
 
 const App: React.FC = () => {
     const [artist, setArtist] = useState('')
@@ -78,24 +78,27 @@ const App: React.FC = () => {
             <div className="container">
                 {
                     loading ? (
-                        <div className="box">
-                            Loading...
-                        </div>
-                    ) : (
-                        <div className="columns is-multiline">
-                            {
-                                covers.map(
-                                    (cover, index) => (
-                                        <div className="column is-3" key={index}>
-                                            <div className="box">
-                                                <img src={cover} alt="Album Cover"/>
+                        <div className="box">Loading...</div>
+                    ) : covers.length > 0 ? (
+                        <>
+                            <div className="box">Click image</div>
+                            <div className="columns is-multiline">
+                                {
+                                    covers.map(
+                                        (cover, index) => (
+                                            <div className="column is-3" key={index}>
+                                                <div className="box">
+                                                    <a href={cover} download>
+                                                        <img src={cover} alt="Album Cover"/>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        )
                                     )
-                                )
-                            }
-                        </div>
-                    )
+                                }
+                            </div>
+                        </>
+                    ) : <></>
                 }
             </div>
         </>
